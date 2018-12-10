@@ -10,10 +10,10 @@ class Select extends Component {
             selectedOption: null
         }
 
-        this.handleSelect = this.handleSelect.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
-    handleSelect(e) {
+    handleSelectChange(e) {
         const val = e.target.value;
 
         this.setState(() => ({selectedOption: val}));
@@ -25,13 +25,16 @@ class Select extends Component {
         const { options } = this.props;
         return (
             <div>
-                {options.map((option, i) => (
-                    <select key={i}>
-                        <option value={option}>
-                            {option}
-                        </option>
-                    </select>
-                ))}
+                <select onChange={this.handleSelectChange}>
+                    {options.map((option, i) => (
+                            <option
+                                key={i} 
+                                value={option}
+                            >
+                                {option}
+                            </option>
+                    ))}
+                </select>
             </div>
         )
     }
