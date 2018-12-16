@@ -1,40 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Modal from './modal';
 
 class Select extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            options: this.props.options,
-            selectedOption: null
+            options: this.props.options || [],
+            optionVal: this.props.optionVal || '',
+            selectedOption: false
         }
 
         this.handleSelectChange = this.handleSelectChange.bind(this);
     }
 
-    handleSelectChange(e) {
-        const val = e.target.value;
-
-        this.setState(() => ({selectedOption: val}));
-
-        console.log(`current option: ${val}`);
+    handleSelectChange() {
+        this.setState((prevState) => ({selectedOption: !prevState.selectedOption}));
     }
 
     render() {
-        const { options } = this.props;
+        const { selectedOption, optionVal } = this.state;
+
         return (
             <div>
-                <select onChange={this.handleSelectChange}>
-                    {options.map((option, i) => (
-                            <option
-                                key={i} 
-                                value={option}
-                            >
-                                {option}
-                            </option>
-                    ))}
-                </select>
+                <div onClick={this.handleSelectChange}>
+                    {optionVal}
+                    <span>&#9662;</span>
+                </div>
+                {selectedOption ? <Modal {...this.props}/> : null}
             </div>
         )
     }
