@@ -2,11 +2,26 @@ import React, { Component } from 'react';
 import Select from '../src/Select.jsx';
 
 class Example extends Component {
-   render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedOption: null
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(selectedOption) {
+        this.setState(() => ({selectedOption}));
+        console.log(this.state)
+    }
+
+    render() {
         return (
             <Select 
                 optionVal = 'Select an option'
                 options={['option1', 'option2', 'option3']}
+                onChange={this.handleChange}
             />
         )
     }

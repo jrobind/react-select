@@ -5,7 +5,6 @@ import Modal from './modal';
 class Select extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             options: this.props.options || [],
             optionVal: this.props.optionVal || '',
@@ -16,7 +15,7 @@ class Select extends Component {
     }
 
     handleSelectChange() {
-        this.setState((prevState) => ({selectedOption: !prevState.selectedOption}));
+        this.setState((prevState) => ({selectedOption: !prevState.selectedOption}), () => console.log('reaching'));
     }
 
     render() {
@@ -35,7 +34,8 @@ class Select extends Component {
 }
 
 Select.propTypes = {
-    options: PropTypes.array.isRequired
+    options: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired
 }
 
 export default Select;
