@@ -1,0 +1,17 @@
+html, body, #app, .modal-background {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    .option-container {
+        position: absolute;
+    }
+    
+    .modal-background {
+        width: 100%;
+        background-color: lightgray;
+        position: absolute;
+    }
+}

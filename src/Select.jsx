@@ -22,8 +22,11 @@ class Select extends Component {
         const { selectedOption, optionVal } = this.state;
 
         return (
-            <div>
-                <div onClick={this.handleModalDisplay}>
+            <div className='select-container'>
+                <div 
+                    className='option-container' 
+                    onClick={this.handleModalDisplay}
+                >
                     {optionVal}
                     <span>&#9662;</span>
                 </div>
