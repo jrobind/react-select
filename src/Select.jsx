@@ -11,11 +11,11 @@ class Select extends Component {
             selectedOption: false
         }
 
-        this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleModalDisplay = this.handleModalDisplay.bind(this);
     }
 
-    handleSelectChange() {
-        this.setState((prevState) => ({selectedOption: !prevState.selectedOption}), () => console.log('reaching'));
+    handleModalDisplay() {
+        this.setState((prevState) => ({selectedOption: !prevState.selectedOption}));
     }
 
     render() {
@@ -23,7 +23,7 @@ class Select extends Component {
 
         return (
             <div>
-                <div onClick={this.handleSelectChange}>
+                <div onClick={this.handleModalDisplay}>
                     {optionVal}
                     <span>&#9662;</span>
                 </div>

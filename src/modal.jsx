@@ -4,6 +4,13 @@ import PropTypes from 'prop-types';
 class Modal extends Component {
     constructor(props) {
         super(props);
+
+        this.handleSelectChange = this.handleSelectChange.bind(this);
+    }
+
+    handleSelectChange(e) {
+        const val = e.target.value;
+        this.props.onChange(val);
     }
 
     render() {
@@ -21,7 +28,13 @@ class Modal extends Component {
             </select>
         )
     }
-
 }
+
+Modal.propTypes = {
+    onChange: PropTypes.func.isRequired,
+    optionVal: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired
+}
+
 
 export default Modal;

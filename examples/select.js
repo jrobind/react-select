@@ -13,7 +13,7 @@ class Example extends Component {
 
     handleChange(selectedOption) {
         this.setState(() => ({selectedOption}));
-        console.log(this.state)
+        console.log(selectedOption);
     }
 
     render() {
