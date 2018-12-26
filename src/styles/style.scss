@@ -1,17 +1,19 @@
-html, body, #app, .modal-background {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
+@import './reset.scss';
+@import './variables.scss';
 
 #app {
-    .option-container {
+    .option-container, .modal-background, .modal-container {
         position: absolute;
+    }
+
+    .modal-container {
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
     }
     
     .modal-background {
         width: 100%;
-        background-color: lightgray;
-        position: absolute;
+        background-color: $modalBackground;
     }
 }

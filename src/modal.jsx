@@ -17,18 +17,18 @@ class Modal extends Component {
         const { options } = this.props;
         return(
             <div className='modal-background'>
-                <div className='modal-container'>
-                    <select onChange={this.handleSelectChange}>
+                <ul className='modal-container'>
+                    <div onChange={this.handleSelectChange}>
                         {options.map((option, i) => (
-                            <option
+                            <li
                                 key={i} 
                                 value={option}
                             >
                                 {option}
-                            </option>
+                            </li>
                         ))}
-                    </select>
-                </div>
+                    </div>
+                </ul>
             </div>
         )
     }
