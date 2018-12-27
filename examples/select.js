@@ -19,7 +19,8 @@ class Example extends Component {
     render() {
         return (
             <Select 
-                optionVal = 'Select an option'
+                optionVal='Select an option'
+                hasInput={true}
                 options={['option1', 'option2', 'option3']}
                 onChange={this.handleChange}
             />

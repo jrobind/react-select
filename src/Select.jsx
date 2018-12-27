@@ -38,7 +38,8 @@ class Select extends Component {
 
 Select.propTypes = {
     options: PropTypes.array.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    hasInput: PropTypes.bool.isRequired
 }
 
 export default Select;
