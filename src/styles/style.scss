@@ -2,7 +2,30 @@
 @import './variables.scss';
 
 #app {
-    .option-container, .modal-background, .modal-container {
+
+    .select {
+        padding: 7px;
+        border-radius: 3px;
+        border: 1px solid $selectBorder;
+        min-width: 170px;
+
+        .select-arrow-container {
+            position: absolute;
+            border-radius: 3px;
+            right: 0;
+            transform: translateY(-50%);
+            top: 50%;
+            padding: 4px;
+            background: $selectBorder;
+
+            .select-arrow {
+                font-size: 1.2em;
+                color: $selectArrow;
+            }
+        }
+    }
+
+    .select, .modal-background, .modal-container {
         position: absolute;
     }
 

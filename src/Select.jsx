@@ -30,11 +30,13 @@ class Select extends Component {
         return (
             <div className='select-container'>
                 <div 
-                    className='option-container' 
+                    className='select' 
                     onClick={this.handleModalDisplay}
                 >
                     {optionVal}
-                    <span>&#9662;</span>
+                    <div className='select-arrow-container'>
+                        <span className='select-arrow'>&#9662;</span>
+                    </div>
                 </div>
                 {selectedOption ? <Modal 
                                     {...this.props}

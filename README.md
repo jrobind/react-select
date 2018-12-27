@@ -1,2 +1,2 @@
-* Look into HOC logic
+* Modal needs to disappear once selection is made
 * Begin Modal styling
