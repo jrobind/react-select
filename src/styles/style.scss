@@ -3,11 +3,14 @@
 
 #app {
 
+    font-family: $fontStack;
+
     .select {
-        padding: 7px;
+        padding: 8px;
         border-radius: 3px;
-        border: 1px solid $selectBorder;
+        border: 2px solid $selectBorder;
         min-width: 170px;
+        font-size: 1.1em;
 
         &:hover {
             cursor: pointer;
@@ -15,14 +18,17 @@
 
         .select-arrow-container {
             position: absolute;
-            border-radius: 3px;
+            border-radius: 3px 3px 0 0;
             right: 0;
             transform: translateY(-50%);
             top: 50%;
-            padding: 4px;
+            padding: 6px;
+            min-width: 18px;
             background: $selectBorder;
 
             .select-arrow {
+                display: flex;
+                justify-content: center;
                 font-size: 1.2em;
                 color: $selectArrow;
             }
