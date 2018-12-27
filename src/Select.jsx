@@ -12,10 +12,16 @@ class Select extends Component {
         }
 
         this.handleModalDisplay = this.handleModalDisplay.bind(this);
+        this.handleSelectTitle = this.handleSelectTitle.bind(this);
     }
 
     handleModalDisplay() {
         this.setState((prevState) => ({selectedOption: !prevState.selectedOption}));
+    }
+
+    handleSelectTitle(newVal) {
+        this.setState(() => ({optionVal: newVal}));
+        console.log(this.state)
     }
 
     render() {
@@ -30,7 +36,10 @@ class Select extends Component {
                     {optionVal}
                     <span>&#9662;</span>
                 </div>
-                {selectedOption ? <Modal {...this.props}/> : null}
+                {selectedOption ? <Modal 
+                                    {...this.props}
+                                    handleSelectTitle={this.handleSelectTitle}
+                                /> : null}
             </div>
         )
     }
@@ -38,7 +47,7 @@ class Select extends Component {
 
 Select.propTypes = {
     options: PropTypes.array.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
     hasInput: PropTypes.bool.isRequired
 }
 

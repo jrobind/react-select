@@ -8,10 +8,10 @@ class Example extends Component {
             selectedOption: null
         }
 
-        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
-    handleChange(selectedOption) {
+    handleClick(selectedOption) {
         this.setState(() => ({selectedOption}));
         console.log(selectedOption);
     }
@@ -22,7 +22,7 @@ class Example extends Component {
                 optionVal='Select an option'
                 hasInput={true}
                 options={['option1', 'option2', 'option3']}
-                onChange={this.handleChange}
+                onClick={this.handleClick}
             />
         )
     }

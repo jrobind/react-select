@@ -10,13 +10,14 @@ class Modal extends Component {
             filteredOptions: null
         }
 
-        this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleSelectClick = this.handleSelectClick.bind(this);
         this.handleOptionSearch = this.handleOptionSearch.bind(this);
     }
 
-    handleSelectChange(e) {
-        const val = e.target.value;
-        this.props.onChange(val);
+    handleSelectClick(e) {
+        const val = e.target.innerText;
+        this.props.onClick(val);
+        this.props.handleSelectTitle(val);
     }
 
     handleOptionSearch(e) {
@@ -27,7 +28,6 @@ class Modal extends Component {
         // set filtering state
         this.setState(() => ({filtering: true}));
         // auto select matching options based on presence of letters
-        const test = 
         this.setState(() => ({filteredOptions: optionsFormattted.filter(option => option.includes(val))}));
     }
 
@@ -35,7 +35,7 @@ class Modal extends Component {
         const { options, optionVal, hasInput } = this.props;
         const { filtering, filteredOptions } = this.state;
         const optionsToRender = filtering ? filteredOptions : options;
-        console.log(filteredOptions, filtering)
+
         return(
             <div className='modal-background'>
                 <div className='modal-container'>
@@ -46,7 +46,7 @@ class Modal extends Component {
                         <input onChange={this.handleOptionSearch} type='text'></input>
                     </div> : null}
                     <ul>
-                        <div onChange={this.handleSelectChange}>
+                        <div onClick={this.handleSelectClick}>
                             {optionsToRender.map((option, i) => (
                                 <li
                                     key={i} 
@@ -64,10 +64,11 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-    onChange: PropTypes.func.isRequired,
+    onClick: PropTypes.func.isRequired,
     optionVal: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
-    hasInput: PropTypes.bool.isRequired
+    hasInput: PropTypes.bool.isRequired,
+    handleSelectTitle: PropTypes.func.isRequired
 }
 
 
