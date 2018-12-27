@@ -9,6 +9,10 @@
         border: 1px solid $selectBorder;
         min-width: 170px;
 
+        &:hover {
+            cursor: pointer;
+        }
+
         .select-arrow-container {
             position: absolute;
             border-radius: 3px;

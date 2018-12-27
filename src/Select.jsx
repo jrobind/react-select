@@ -8,7 +8,7 @@ class Select extends Component {
         this.state = {
             options: this.props.options || [],
             optionVal: this.props.optionVal || '',
-            selectedOption: false
+            showModal: false
         }
 
         this.handleModalDisplay = this.handleModalDisplay.bind(this);
@@ -16,16 +16,17 @@ class Select extends Component {
     }
 
     handleModalDisplay() {
-        this.setState((prevState) => ({selectedOption: !prevState.selectedOption}));
+        this.setState((prevState) => ({showModal: !prevState.showModal}));
     }
 
     handleSelectTitle(newVal) {
         this.setState(() => ({optionVal: newVal}));
-        console.log(this.state)
+        // if a selection is made then we need to remove modal
+        this.handleModalDisplay();
     }
 
     render() {
-        const { selectedOption, optionVal } = this.state;
+        const { showModal, optionVal } = this.state;
 
         return (
             <div className='select-container'>
@@ -38,7 +39,7 @@ class Select extends Component {
                         <span className='select-arrow'>&#9662;</span>
                     </div>
                 </div>
-                {selectedOption ? <Modal 
+                {showModal ? <Modal 
                                     {...this.props}
                                     handleSelectTitle={this.handleSelectTitle}
                                 /> : null}
