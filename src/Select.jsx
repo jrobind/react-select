@@ -39,10 +39,14 @@ class Select extends Component {
                         <span className='select-arrow'>&#9662;</span>
                     </div>
                 </div>
-                {showModal ? <Modal 
-                                    {...this.props}
-                                    handleSelectTitle={this.handleSelectTitle}
-                                /> : null}
+                <div 
+                    className={showModal ? 'modal-background-overlay show' : 'modal-background-overlay'}
+                >
+                    <Modal 
+                        {...this.props}
+                        handleSelectTitle={this.handleSelectTitle}
+                    />
+                </div>    
             </div>
         )
     }

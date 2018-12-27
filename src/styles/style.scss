@@ -35,18 +35,27 @@
         }
     }
 
-    .select, .modal-background, .modal-container {
+    .select, .modal-background-overlay, .modal-container {
         position: absolute;
+    }
+
+    .modal-background-overlay.show {
+        opacity: 1;
+        visibility: visible;
+        height: 100%;
+    }
+    
+    .modal-background-overlay {
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity .3s;
+        width: 100%;
+        background-color: $modalBackground;
     }
 
     .modal-container {
         top: 50px;
         left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .modal-background {
-        width: 100%;
-        background-color: $modalBackground;
+        transform: translateX(-51%);
     }
 }

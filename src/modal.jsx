@@ -37,27 +37,25 @@ class Modal extends Component {
         const optionsToRender = filtering ? filteredOptions : options;
 
         return(
-            <div className='modal-background'>
-                <div className='modal-container'>
-                    <div className='modal-title'>
-                        {optionVal}
-                    </div>
-                    {hasInput ? <div className='modal-input-container'>
-                        <input onChange={this.handleOptionSearch} type='text'></input>
-                    </div> : null}
-                    <ul>
-                        <div onClick={this.handleSelectClick}>
-                            {optionsToRender.map((option, i) => (
-                                <li
-                                    key={i} 
-                                    value={option}
-                                >
-                                    {option}
-                                </li>
-                            ))}
-                        </div>
-                    </ul>              
+            <div className='modal-container'>
+                <div className='modal-title'>
+                    {optionVal}
                 </div>
+                {hasInput ? <div className='modal-input-container'>
+                    <input onChange={this.handleOptionSearch} type='text'></input>
+                </div> : null}
+                <ul>
+                    <div onClick={this.handleSelectClick}>
+                        {optionsToRender.map((option, i) => (
+                            <li
+                                key={i} 
+                                value={option}
+                            >
+                                {option}
+                            </li>
+                        ))}
+                    </div>
+                </ul>              
             </div>
         )
     }
