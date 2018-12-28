@@ -29,18 +29,31 @@ class Select extends Component {
         const { showModal, optionVal } = this.state;
 
         return (
-            <div className='select-container'>
+            <div 
+                className='select-container'
+                data-testid='selectContainer'    
+            >
                 <div 
-                    className='select' 
+                    className='select'
+                    data-testid='select' 
                     onClick={this.handleModalDisplay}
                 >
                     {optionVal}
-                    <div className='select-arrow-container'>
-                        <span className='select-arrow'>&#9662;</span>
+                    <div 
+                        className='select-arrow-container'
+                        data-testid='arrowContainer'
+                    >
+                        <span 
+                            className='select-arrow'
+                            data-testid='arrow'
+                        >
+                            &#9662;
+                        </span>
                     </div>
                 </div>
                 <div 
                     className={showModal ? 'modal-background-overlay show' : 'modal-background-overlay'}
+                    data-testid='modalOverlay'
                 >
                     <Modal 
                         {...this.props}
