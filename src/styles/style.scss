@@ -48,7 +48,7 @@
     .modal-background-overlay {
         visibility: hidden;
         opacity: 0;
-        transition: opacity .3s;
+        transition: opacity $modalSpeed;
         width: 100%;
         background-color: $modalBackground;
     }
