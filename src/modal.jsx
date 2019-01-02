@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+const ErrorMessage = () => (
+    <div className='modal-error-message'>
+        <p>Please select one option.</p>
+    </div>
+)
+
 class Modal extends Component {
     constructor(props) {
         super(props);
@@ -8,7 +14,8 @@ class Modal extends Component {
         this.state = {
             filtering: false,
             filteredOptions: null,
-            filterVal: ''
+            filterVal: '',
+            alertMessage: false,
         }
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
@@ -39,13 +46,17 @@ class Modal extends Component {
         e.preventDefault();
         // only allow submission via enter key if one option value is filtered
         if (filteredOptions.length === 1) {
+            this.setState(() => ({alertMessage: false}));
             this.handleSelectClick(null, filteredOptions[0]);
+        } else {
+            // inform user if not
+            this.setState(() => ({alertMessage: true}));
         }
     }
 
     render() {
         const { options, optionVal, hasInput } = this.props;
-        const { filtering, filteredOptions } = this.state;
+        const { filtering, filteredOptions, alertMessage } = this.state;
         const optionsToRender = filtering ? filteredOptions : options;
 
         return(
@@ -58,11 +69,14 @@ class Modal extends Component {
                         onSubmit={this.handleSubmit}
                         className='modal-input-container'
                     >
+                        {alertMessage ? <ErrorMessage/> : null}
                         <input 
+                            className={alertMessage ? 'modal-input-error' : 'modal-input'}
                             value={this.state.filterVal}
                             onChange={this.handleOptionSearch}
                             type='text'></input>
                     </form> : null}
+    
                 <ul>
                     <div onClick={this.handleSelectClick}>
                         {optionsToRender.map((option, i) => (
