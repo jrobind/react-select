@@ -7,28 +7,40 @@ class Modal extends Component {
 
         this.state = {
             filtering: false,
-            filteredOptions: null
+            filteredOptions: null,
+            filterVal: ''
         }
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
         this.handleOptionSearch = this.handleOptionSearch.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSelectClick(e) {
-        const val = e.target.innerText;
+    handleSelectClick(e, submissionVal) {
+        const val = e ? e.target.innerText : submissionVal;
         this.props.onClick(val);
         this.props.handleSelectTitle(val);
     }
 
     handleOptionSearch(e) {
+        console.log(e.target.value)
         const { options } = this.props;
         const optionsFormattted = options.map(option => option.toLowerCase());
         const val = e.target.value.toLowerCase();
 
-        // set filtering state
-        this.setState(() => ({filtering: true}));
+        // set filtering state and filter val
+        this.setState(() => ({filtering: true, filterVal: val}));
         // auto select matching options based on presence of letters
         this.setState(() => ({filteredOptions: optionsFormattted.filter(option => option.includes(val))}));
+    }
+
+    handleSubmit(e) {
+        const { filteredOptions } = this.state;
+        e.preventDefault();
+        // only allow submission via enter key if one option value is filtered
+        if (filteredOptions.length === 1) {
+            this.handleSelectClick(null, filteredOptions[0]);
+        }
     }
 
     render() {
@@ -41,9 +53,16 @@ class Modal extends Component {
                 <div className='modal-title'>
                     {optionVal}
                 </div>
-                {hasInput ? <div className='modal-input-container'>
-                    <input onChange={this.handleOptionSearch} type='text'></input>
-                </div> : null}
+                {hasInput ? 
+                    <form 
+                        onSubmit={this.handleSubmit}
+                        className='modal-input-container'
+                    >
+                        <input 
+                            value={this.state.filterVal}
+                            onChange={this.handleOptionSearch}
+                            type='text'></input>
+                    </form> : null}
                 <ul>
                     <div onClick={this.handleSelectClick}>
                         {optionsToRender.map((option, i) => (
