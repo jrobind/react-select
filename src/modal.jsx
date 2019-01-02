@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const ErrorMessage = () => (
     <div className='modal-error-message'>
-        <p>Please select one option.</p>
+        <p>Please select <strong>one</strong> option.</p>
     </div>
 )
 
@@ -45,7 +45,7 @@ class Modal extends Component {
         const { filteredOptions } = this.state;
         e.preventDefault();
         // only allow submission via enter key if one option value is filtered
-        if (filteredOptions.length === 1) {
+        if (filteredOptions && filteredOptions.length === 1) {
             this.setState(() => ({alertMessage: false}));
             this.handleSelectClick(null, filteredOptions[0]);
         } else {

@@ -58,9 +58,49 @@
         left: 50%;
         transform: translateX(-51%);
 
+        .modal-input-container {
+            position: relative;
+        }
+
         .modal-input-error {
             outline: none;
             border: 2px solid red;
         }
+    }
+
+    .modal-error-message {
+        position: absolute;
+        left: -123px;
+        top: -29px;
+        max-width: 100px;
+        background-color: $errorMessageBlue;
+
+        p {
+            color: whitesmoke;
+            padding: 5px;
+        }
+    }
+
+    .modal-error-message:after, .modal-error-message:before {
+        left: 100%;
+        top: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .modal-error-message:after {
+        border-color: rgba(136, 183, 213, 0);
+        border-left-color: $errorMessageBlue;
+        border-width: 18px;
+        margin-top: -18px;
+    }
+    .modal-error-message:before {
+        border-color: rgba(194, 225, 245, 0);
+        border-width: 18px;
+        margin-top: -18px;
     }
 }
