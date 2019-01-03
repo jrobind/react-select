@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const ErrorMessage = () => (
+const ErrorMessage = ({ handleExit }) => (
     <div className='modal-error-message'>
+        <div 
+            className='modal-error-message-exit'
+            onClick={handleExit}
+        >x</div>
         <p>Please select <strong>one</strong> option.</p>
     </div>
 )
@@ -21,6 +25,11 @@ class Modal extends Component {
         this.handleSelectClick = this.handleSelectClick.bind(this);
         this.handleOptionSearch = this.handleOptionSearch.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleExit = this.handleExit.bind(this);
+    }
+
+    handleExit() {
+        this.setState(() => ({alertMessage: false}));
     }
 
     handleSelectClick(e, submissionVal) {
@@ -69,7 +78,7 @@ class Modal extends Component {
                         onSubmit={this.handleSubmit}
                         className='modal-input-container'
                     >
-                        {alertMessage ? <ErrorMessage/> : null}
+                        {alertMessage ? <ErrorMessage handleExit={this.handleExit}/> : null}
                         <input 
                             className={alertMessage ? 'modal-input-error' : 'modal-input'}
                             value={this.state.filterVal}
@@ -77,7 +86,7 @@ class Modal extends Component {
                             type='text'></input>
                     </form> : null}
     
-                <ul>
+                <ul className="modal-options">
                     <div onClick={this.handleSelectClick}>
                         {optionsToRender.map((option, i) => (
                             <li

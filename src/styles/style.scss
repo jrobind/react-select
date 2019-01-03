@@ -68,16 +68,34 @@
         }
     }
 
+    .modal-options:hover {
+        cursor: pointer;
+    }
+
     .modal-error-message {
+        display: flex;
+        flex-direction: column;
         position: absolute;
         left: -123px;
         top: -29px;
         max-width: 100px;
         background-color: $errorMessageBlue;
+        color: $errorMessageWhite;
+
+        .modal-error-message-exit {
+            font-size: 0.7em;
+            align-self: flex-end;
+            margin-right: 8px;
+            opacity: 0.85;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
 
         p {
-            color: whitesmoke;
-            padding: 5px;
+            margin-top: 2px;
+            padding: 0 5px 5px 5px;
         }
     }
 
@@ -93,14 +111,12 @@
     }
 
     .modal-error-message:after {
-        border-color: rgba(136, 183, 213, 0);
         border-left-color: $errorMessageBlue;
-        border-width: 18px;
-        margin-top: -18px;
+        border-width: $modalTriangleWidth;
+        margin-top: -#{$modalTriangleWidth};
     }
     .modal-error-message:before {
-        border-color: rgba(194, 225, 245, 0);
-        border-width: 18px;
-        margin-top: -18px;
+        border-width: $modalTriangleWidth;
+        margin-top: -#{$modalTriangleWidth};
     }
 }

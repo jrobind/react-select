@@ -3,9 +3,13 @@ $modalBackground:rgba(0, 0, 0, 0.4);
 $selectBorder:#eee;
 $selectArrow: #aaa;
 $errorMessageBlue: #0095ff;
+$errorMessageWhite: #f5f5f5;
 
 // font stack
 $fontStack: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 
 // timings
 $modalSpeed: .4s;
+
+// dimensions
+$modalTriangleWidth: 18px;
