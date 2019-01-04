@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Modal from './modal';
+import Modal from './Modal';
 
 class Select extends Component {
     constructor(props) {

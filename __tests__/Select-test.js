@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from '../src/Select';
-import { shallow } from 'enzyme';
+import Modal from '../src/Modal';
+import { shallow, mount } from 'enzyme';
 
 const props = {
     onClick: function() {},
@@ -41,9 +42,19 @@ describe('<Select/>', () => {
 
     it('should render a modalOverlay data-testid attribute', () => {
         const wrapper = shallow(<Select {...props} />);
-
         expect(wrapper.find('[data-testid="modalOverlay"]')).toHaveLength(1);
     });
 
+    it('should dynamically render classname depending on showModal property value', () => {
+        const wrapper = shallow(<Select {...props} />);
+        wrapper.setState({ showModal: true }, () => {
+            expect(wrapper.find('.modal-background-overlay.show')).toHaveLength(1);
+        });
+    });
+
+    it('should render a Modal component ', () => {
+        const wrapper = shallow(<Select {...props} />);
+        expect(wrapper.find(Modal)).toHaveLength(1);
+    });
 
 });
