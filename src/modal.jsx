@@ -104,14 +104,21 @@ class Modal extends Component {
         const optionsToRender = filtering ? filteredOptions : options;
 
         return(
-            <div className='modal-container'>
-                <div className='modal-title'>
+            <div 
+                className='modal-container'
+                data-testid='modalContainer' 
+            >
+                <div 
+                    className='modal-title'
+                    data-testid='modalTitle' 
+                >
                     {optionVal}
                 </div>
                 {hasInput ? 
                     <form 
                         onSubmit={this.handleSubmit}
                         className='modal-input-container'
+                        data-testid='modalForm' 
                     >
                         {alertMessage ? <ErrorMessage handleExit={this.handleExit}/> : null}
                         <input 
