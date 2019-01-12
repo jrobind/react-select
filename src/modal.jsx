@@ -24,8 +24,19 @@ class Modal extends Component {
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
         this.handleOptionSearch = this.handleOptionSearch.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this); 
         this.handleExit = this.handleExit.bind(this);
+    }
+
+    componentWillReceiveProps() {
+        const { showModal } = this.props;
+        // reset input and options
+        showModal ? this.setState(() => ({ 
+            filterVal: '', 
+            filteredOptions: null,
+            filtering: false,
+            alertMessage: false
+         })) : null;
     }
 
     handleExit() {
@@ -39,7 +50,6 @@ class Modal extends Component {
     }
 
     handleOptionSearch(e) {
-        console.log(e.target.value)
         const { options } = this.props;
         const optionsFormattted = options.map(option => option.toLowerCase());
         const val = e.target.value.toLowerCase();
