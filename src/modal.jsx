@@ -26,17 +26,22 @@ class Modal extends Component {
         this.handleOptionSearch = this.handleOptionSearch.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.handleExit = this.handleExit.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
     componentWillReceiveProps() {
         const { showModal } = this.props;
-        // reset input and options
-        showModal ? this.setState(() => ({ 
+        // reset input and options if modal is shown
+        showModal && this.reset();
+    }
+
+    reset() {
+        this.setState(() => ({ 
             filterVal: '', 
             filteredOptions: null,
             filtering: false,
             alertMessage: false
-         })) : null;
+         }))
     }
 
     handleExit() {
