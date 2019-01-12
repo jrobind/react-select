@@ -67,6 +67,9 @@ class Modal extends Component {
 
         // update state selected uid
         this.setState(() => ({ selectedUid: uid }))
+        // remove any select attributes
+        Array.from(e.target.parentElement.children)
+            .forEach((option) => option.hasAttribute('selected') && option.removeAttribute('selected'));
         // set attribute so we can highlight selected option
         e.target.setAttribute('selected', '');
     }
