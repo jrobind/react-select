@@ -5,6 +5,10 @@
 
     font-family: $fontStack;
 
+    [selected] {
+        background-color: $selectedBackground;
+    }
+
     .select {
         padding: 8px;
         border-radius: 3px;

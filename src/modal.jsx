@@ -20,6 +20,7 @@ class Modal extends Component {
             filteredOptions: null,
             filterVal: '',
             alertMessage: false,
+            selectedUid: null
         }
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
@@ -27,6 +28,7 @@ class Modal extends Component {
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.handleExit = this.handleExit.bind(this);
         this.reset = this.reset.bind(this);
+        this.createId = this.createId.bind(this);
     }
 
     componentWillReceiveProps() {
@@ -35,13 +37,22 @@ class Modal extends Component {
         showModal && this.reset();
     }
 
+    createId() {
+        let uid = '';
+        for(let i = 0; i < 12; i++) {
+            uid += Math.floor(Math.random() * 10);
+        }
+
+        return uid;
+    }
+
     reset() {
         this.setState(() => ({ 
             filterVal: '', 
             filteredOptions: null,
             filtering: false,
             alertMessage: false
-         }))
+         }));
     }
 
     handleExit() {
@@ -49,9 +60,15 @@ class Modal extends Component {
     }
 
     handleSelectClick(e, submissionVal) {
+        const uid = e.target.getAttribute('uid');
         const val = e ? e.target.innerText : submissionVal;
         this.props.onClick(val);
-        this.props.handleSelectTitle(val);
+        this.props.handleSelectTitle(val);  
+
+        // update state selected uid
+        this.setState(() => ({ selectedUid: uid }))
+        // set attribute so we can highlight selected option
+        e.target.setAttribute('selected', '');
     }
 
     handleOptionSearch(e) {
@@ -80,7 +97,7 @@ class Modal extends Component {
 
     render() {
         const { options, optionVal, hasInput } = this.props;
-        const { filtering, filteredOptions, alertMessage } = this.state;
+        const { filtering, filteredOptions, alertMessage, selectedUid } = this.state;
         const optionsToRender = filtering ? filteredOptions : options;
 
         return(
@@ -107,6 +124,7 @@ class Modal extends Component {
                             <li
                                 key={i} 
                                 value={option}
+                                uid={this.createId()}
                             >
                                 {option}
                             </li>

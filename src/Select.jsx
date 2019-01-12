@@ -58,6 +58,7 @@ class Select extends Component {
                     <Modal 
                         {...this.props}
                         showModal={showModal}
+                        optionVal={optionVal}
                         handleSelectTitle={this.handleSelectTitle}
                     />
                 </div>    
