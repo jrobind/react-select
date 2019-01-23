@@ -25,6 +25,7 @@ class Modal extends Component {
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
         this.handleOptionSearch = this.handleOptionSearch.bind(this);
+        this.handleOptionHighlighting = this.handleOptionHighlighting.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.handleExit = this.handleExit.bind(this);
         this.reset = this.reset.bind(this);
@@ -60,13 +61,16 @@ class Modal extends Component {
     }
 
     handleSelectClick(e, submissionVal) {
-        const uid = e.target.getAttribute('uid');
         const val = e ? e.target.innerText : submissionVal;
+        
         this.props.onClick(val);
         this.props.handleSelectTitle(val);  
+    }
 
-        // update state selected uid
-        this.setState(() => ({ selectedUid: uid }))
+    handleOptionHighlighting() {
+        const uid = e.target.getAttribute('uid');
+
+        this.setState(() => ({ selectedUid: uid }));
         // remove any select attributes
         Array.from(e.target.parentElement.children)
             .forEach((option) => option.hasAttribute('selected') && option.removeAttribute('selected'));
@@ -87,11 +91,13 @@ class Modal extends Component {
 
     handleSubmit(e) {
         const { filteredOptions } = this.state;
+        console.log('reaching3')
         e.preventDefault();
         // only allow submission via enter key if one option value is filtered
         if (filteredOptions && filteredOptions.length === 1) {
             this.setState(() => ({alertMessage: false}));
-            this.handleSelectClick(null, filteredOptions[0]);
+            this.props.handleSelectTitle(filteredOptions[0]);  
+
         } else {
             // inform user if not
             this.setState(() => ({alertMessage: true}));
