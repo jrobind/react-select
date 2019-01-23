@@ -29,22 +29,12 @@ class Modal extends Component {
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.handleExit = this.handleExit.bind(this);
         this.reset = this.reset.bind(this);
-        this.createId = this.createId.bind(this);
     }
 
     componentWillReceiveProps() {
         const { showModal } = this.props;
         // reset input and options if modal is shown
         showModal && this.reset();
-    }
-
-    createId() {
-        let uid = '';
-        for(let i = 0; i < 12; i++) {
-            uid += Math.floor(Math.random() * 10);
-        }
-
-        return uid;
     }
 
     reset() {
@@ -60,15 +50,23 @@ class Modal extends Component {
         this.setState(() => ({alertMessage: false}));
     }
 
-    handleSelectClick(e, submissionVal) {
+    handleSelectClick(e) {
         const val = e ? e.target.innerText : submissionVal;
-        
+
+        this.handleOptionHighlighting(e);
         this.props.onClick(val);
         this.props.handleSelectTitle(val);  
     }
 
-    handleOptionHighlighting() {
-        const uid = e.target.getAttribute('uid');
+    handleOptionHighlighting(e) {
+        const { filteredOptions } = this.state;
+        let uid;
+        // enter key case
+        if (e.type === 'submit') {
+            
+        } else {
+            uid = e.target.getAttribute('uid');
+        }
 
         this.setState(() => ({ selectedUid: uid }));
         // remove any select attributes
@@ -79,25 +77,24 @@ class Modal extends Component {
     }
 
     handleOptionSearch(e) {
-        const { options } = this.props;
-        const optionsFormattted = options.map(option => option.toLowerCase());
+        const { options } = this.state.optionsWithId;
+        const optionsFormattted = options.map(option => option.val.toLowerCase());
         const val = e.target.value.toLowerCase();
 
         // set filtering state and filter val
         this.setState(() => ({filtering: true, filterVal: val}));
         // auto select matching options based on presence of letters
-        this.setState(() => ({filteredOptions: optionsFormattted.filter(option => option.includes(val))}));
+        this.setState(() => ({filteredOptions: optionsFormattted.filter(option => option.val.includes(val))}));
     }
 
     handleSubmit(e) {
         const { filteredOptions } = this.state;
-        console.log('reaching3')
         e.preventDefault();
         // only allow submission via enter key if one option value is filtered
         if (filteredOptions && filteredOptions.length === 1) {
             this.setState(() => ({alertMessage: false}));
+            this.handleOptionHighlighting(e);
             this.props.handleSelectTitle(filteredOptions[0]);  
-
         } else {
             // inform user if not
             this.setState(() => ({alertMessage: true}));
@@ -105,10 +102,15 @@ class Modal extends Component {
     }
 
     render() {
-        const { options, optionVal, hasInput } = this.props;
-        const { filtering, filteredOptions, alertMessage, selectedUid } = this.state;
-        const optionsToRender = filtering ? filteredOptions : options;
-
+        const { optionsWithId, optionVal, hasInput } = this.props;
+        const { 
+            filtering, 
+            filteredOptions, 
+            alertMessage, 
+            selectedUid
+        } = this.state;
+        const optionsToRender = filtering ? filteredOptions : optionsWithId;
+        console.log(optionsToRender)
         return(
             <div 
                 className='modal-container'
@@ -139,10 +141,10 @@ class Modal extends Component {
                         {optionsToRender.map((option, i) => (
                             <li
                                 key={i} 
-                                value={option}
-                                uid={this.createId()}
+                                value={option.val}
+                                uid={option.id}
                             >
-                                {option}
+                                {option.val}
                             </li>
                         ))}
                     </div>
@@ -155,6 +157,7 @@ class Modal extends Component {
 Modal.propTypes = {
     onClick: PropTypes.func.isRequired,
     optionVal: PropTypes.string.isRequired,
+    optionsWithId: PropTypes.array.isRequired,
     options: PropTypes.array.isRequired,
     hasInput: PropTypes.bool.isRequired,
     handleSelectTitle: PropTypes.func.isRequired

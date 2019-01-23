@@ -13,6 +13,7 @@ class Select extends Component {
 
         this.handleModalDisplay = this.handleModalDisplay.bind(this);
         this.handleSelectTitle = this.handleSelectTitle.bind(this);
+        this.createId = this.createId.bind(this);
     }
 
     handleModalDisplay() {
@@ -25,8 +26,19 @@ class Select extends Component {
         this.handleModalDisplay();
     }
 
+    createId(options) {
+        // create objects from option strings
+        return options.map(option => {
+            let uid = '';
+            for(let i = 0; i < 12; i++) {
+                uid += Math.floor(Math.random() * 10);
+            }
+            return {val: option, id: uid}
+        });
+    }
+
     render() {
-        const { showModal, optionVal } = this.state;
+        const { showModal, optionVal, options } = this.state;
 
         return (
             <div 
@@ -57,6 +69,7 @@ class Select extends Component {
                 >
                     <Modal 
                         {...this.props}
+                        optionsWithId={this.createId(options)}
                         showModal={showModal}
                         optionVal={optionVal}
                         handleSelectTitle={this.handleSelectTitle}
