@@ -20,8 +20,8 @@ class Select extends Component {
         this.setState((prevState) => ({showModal: !prevState.showModal}));
     }
 
-    handleSelectTitle(newVal) {
-        this.setState(() => ({optionVal: newVal}));
+    handleSelectTitle({ val }) {
+        this.setState(() => ({optionVal: val}));
         // if a selection is made then we need to remove modal
         this.handleModalDisplay();
     }

@@ -55,7 +55,8 @@ class Modal extends Component {
 
         this.handleOptionHighlighting(e);
         this.props.onClick(val);
-        this.props.handleSelectTitle(val);  
+        // the method expects an object
+        this.props.handleSelectTitle({val});  
     }
 
     handleOptionHighlighting(e) {
@@ -77,14 +78,12 @@ class Modal extends Component {
     }
 
     handleOptionSearch(e) {
-        const { options } = this.state.optionsWithId;
-        const optionsFormattted = options.map(option => option.val.toLowerCase());
+        const { optionsWithId } = this.props;
         const val = e.target.value.toLowerCase();
+        const filteredOptions = optionsWithId.filter(option => option.val.toLowerCase().includes(val));
 
-        // set filtering state and filter val
-        this.setState(() => ({filtering: true, filterVal: val}));
-        // auto select matching options based on presence of letters
-        this.setState(() => ({filteredOptions: optionsFormattted.filter(option => option.val.includes(val))}));
+        // set filtering state, filtered options and filter val
+        this.setState(() =>({filtering: true, filterVal: val, filteredOptions}));
     }
 
     handleSubmit(e) {
