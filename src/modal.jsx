@@ -67,8 +67,9 @@ class Modal extends Component {
         if (e.type === 'submit') {
             const filteredOptions = optionsWithId.map(option => {
                 if (option.val === filterVal) {
-                    option.selected = true;
+                   option.selected = true;
                 }
+                return option;
             });
             console.log(filteredOptions)
             this.setState(() => ({filteredOptions}));
