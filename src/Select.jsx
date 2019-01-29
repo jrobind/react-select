@@ -33,7 +33,7 @@ class Select extends Component {
             for(let i = 0; i < 12; i++) {
                 uid += Math.floor(Math.random() * 10);
             }
-            return {val: option, id: uid}
+            return {val: option, id: uid, selected: false}
         });
     }
 

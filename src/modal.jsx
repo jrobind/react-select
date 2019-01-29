@@ -60,21 +60,29 @@ class Modal extends Component {
     }
 
     handleOptionHighlighting(e) {
-        const { filteredOptions } = this.state;
-        let uid;
-        // enter key case
+        const { filterVal } = this.state;
+        const { optionsWithId } = this.props;
+
+        // check event type
         if (e.type === 'submit') {
-            
+            const filteredOptions = optionsWithId.map(option => {
+                if (option.val === filterVal) {
+                    option.selected = true;
+                }
+            });
+            console.log(filteredOptions)
+            this.setState(() => ({filteredOptions}));
         } else {
-            uid = e.target.getAttribute('uid');
+            // click case
         }
 
-        this.setState(() => ({ selectedUid: uid }));
-        // remove any select attributes
-        Array.from(e.target.parentElement.children)
-            .forEach((option) => option.hasAttribute('selected') && option.removeAttribute('selected'));
-        // set attribute so we can highlight selected option
-        e.target.setAttribute('selected', '');
+
+        // this.setState(() => ({ selectedUid: uid }));
+        // // remove any select attributes
+        // Array.from(e.target.parentElement.children)
+        //     .forEach((option) => option.hasAttribute('selected') && option.removeAttribute('selected'));
+        // // set attribute so we can highlight selected option
+        // e.target.setAttribute('selected', '');
     }
 
     handleOptionSearch(e) {
@@ -142,6 +150,7 @@ class Modal extends Component {
                                 key={i} 
                                 value={option.val}
                                 uid={option.id}
+                                selected={option.selected}
                             >
                                 {option.val}
                             </li>
