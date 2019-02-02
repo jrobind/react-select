@@ -25,14 +25,14 @@ class Modal extends Component {
 
         this.handleSelectClick = this.handleSelectClick.bind(this);
         this.handleOptionSearch = this.handleOptionSearch.bind(this);
-        this.handleOptionHighlighting = this.handleOptionHighlighting.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this); 
         this.handleExit = this.handleExit.bind(this);
         this.reset = this.reset.bind(this);
     }
 
     componentWillReceiveProps() {
-        const { showModal } = this.props;
+        const { showModal, optionsWithId } = this.props;
+        console.log(optionsWithId)
         // reset input and options if modal is shown
         showModal && this.reset();
     }
@@ -50,42 +50,6 @@ class Modal extends Component {
         this.setState(() => ({alertMessage: false}));
     }
 
-    handleSelectClick(e) {
-        const val = e ? e.target.innerText : submissionVal;
-
-        this.handleOptionHighlighting(e);
-        this.props.onClick(val);
-        // the method expects an object
-        this.props.handleSelectTitle({val});  
-    }
-
-    handleOptionHighlighting(e) {
-        const { filterVal } = this.state;
-        const { optionsWithId } = this.props;
-
-        // check event type
-        if (e.type === 'submit') {
-            const filteredOptions = optionsWithId.map(option => {
-                if (option.val === filterVal) {
-                   option.selected = true;
-                }
-                return option;
-            });
-            console.log(filteredOptions)
-            this.setState(() => ({filteredOptions}));
-        } else {
-            // click case
-        }
-
-
-        // this.setState(() => ({ selectedUid: uid }));
-        // // remove any select attributes
-        // Array.from(e.target.parentElement.children)
-        //     .forEach((option) => option.hasAttribute('selected') && option.removeAttribute('selected'));
-        // // set attribute so we can highlight selected option
-        // e.target.setAttribute('selected', '');
-    }
-
     handleOptionSearch(e) {
         const { optionsWithId } = this.props;
         const val = e.target.value.toLowerCase();
@@ -95,14 +59,39 @@ class Modal extends Component {
         this.setState(() =>({filtering: true, filterVal: val, filteredOptions}));
     }
 
+    handleSelectClick(e) {
+        const { 
+            handleOptionHighlighting, 
+            handleSelectTitle, 
+            onClick,
+            optionsWithId
+        } = this.props;
+        const { filterVal } = this.state;
+        const val = e ? e.target.innerText : submissionVal;
+
+        handleOptionHighlighting({
+            eventType: e.type,
+            filterVal,
+            optionsWithId
+        });
+        onClick(val);
+        // the method expects an object
+        handleSelectTitle({val});  
+    }
+
     handleSubmit(e) {
-        const { filteredOptions } = this.state;
+        const { filteredOptions, filterVal } = this.state;
+        const { handleOptionHighlighting, handleSelectTitle, optionsWithId} = this.props;
         e.preventDefault();
         // only allow submission via enter key if one option value is filtered
         if (filteredOptions && filteredOptions.length === 1) {
             this.setState(() => ({alertMessage: false}));
-            this.handleOptionHighlighting(e);
-            this.props.handleSelectTitle(filteredOptions[0]);  
+            handleOptionHighlighting({
+                eventType: e.type,
+                filterVal,
+                optionsWithId
+            });
+            handleSelectTitle(filteredOptions[0]);  
         } else {
             // inform user if not
             this.setState(() => ({alertMessage: true}));
@@ -118,7 +107,7 @@ class Modal extends Component {
             selectedUid
         } = this.state;
         const optionsToRender = filtering ? filteredOptions : optionsWithId;
-        console.log(optionsToRender)
+
         return(
             <div 
                 className='modal-container'
@@ -169,7 +158,8 @@ Modal.propTypes = {
     optionsWithId: PropTypes.array.isRequired,
     options: PropTypes.array.isRequired,
     hasInput: PropTypes.bool.isRequired,
-    handleSelectTitle: PropTypes.func.isRequired
+    handleSelectTitle: PropTypes.func.isRequired,
+    handleOptionHighlighting: PropTypes.func.isRequired
 }
 
 

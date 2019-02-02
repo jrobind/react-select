@@ -8,11 +8,13 @@ class Select extends Component {
         this.state = {
             options: this.props.options || [],
             optionVal: this.props.optionVal || '',
-            showModal: false
+            showModal: false,
+            optionsHighlighted: []
         }
 
         this.handleModalDisplay = this.handleModalDisplay.bind(this);
         this.handleSelectTitle = this.handleSelectTitle.bind(this);
+        this.handleOptionHighlighting = this.handleOptionHighlighting.bind(this);
         this.createId = this.createId.bind(this);
     }
 
@@ -37,8 +39,37 @@ class Select extends Component {
         });
     }
 
+    handleOptionHighlighting({eventType, filterVal, optionsWithId}) {
+        // check event type
+        if (eventType === 'submit') {
+            const optionsHighlighted = optionsWithId.map(option => {
+                if (option.val === filterVal) {
+                   option.selected = true;
+                }
+                return option;
+            });
+            console.log(optionsHighlighted)
+            this.setState(() => ({optionsHighlighted}));
+        } else {
+            // click case
+        }
+
+
+        // this.setState(() => ({ selectedUid: uid }));
+        // // remove any select attributes
+        // Array.from(e.target.parentElement.children)
+        //     .forEach((option) => option.hasAttribute('selected') && option.removeAttribute('selected'));
+        // // set attribute so we can highlight selected option
+        // e.target.setAttribute('selected', '');
+    }
+
     render() {
-        const { showModal, optionVal, options } = this.state;
+        const { 
+            showModal, 
+            optionVal, 
+            options, 
+            optionsHighlighted 
+        } = this.state;
 
         return (
             <div 
@@ -69,9 +100,8 @@ class Select extends Component {
                 >
                     <Modal 
                         {...this.props}
-                        optionsWithId={this.createId(options)}
-                        showModal={showModal}
-                        optionVal={optionVal}
+                        optionsWithId={ optionsHighlighted.length ? optionsHighlighted : this.createId(options)}
+                        handleOptionHighlighting={this.handleOptionHighlighting}
                         handleSelectTitle={this.handleSelectTitle}
                     />
                 </div>    
