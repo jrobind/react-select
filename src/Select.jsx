@@ -40,12 +40,15 @@ class Select extends Component {
     }
 
     handleOptionHighlighting({eventType, filterVal, optionsWithId}) {
+        // reset options that may have already been highlighted
+        optionsWithId = optionsWithId.map(option => {
+            if (option.selected) { option.selected = false; }
+            return option;
+        })
         // check event type
         if (eventType === 'submit') {
             const optionsHighlighted = optionsWithId.map(option => {
-                if (option.val === filterVal) {
-                   option.selected = true;
-                }
+                if (option.val === filterVal) { option.selected = true; }
                 return option;
             });
             console.log(optionsHighlighted)
@@ -99,6 +102,7 @@ class Select extends Component {
                     data-testid='modalOverlay'
                 >
                     <Modal 
+                        {...this.state}
                         {...this.props}
                         optionsWithId={ optionsHighlighted.length ? optionsHighlighted : this.createId(options)}
                         handleOptionHighlighting={this.handleOptionHighlighting}

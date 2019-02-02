@@ -31,13 +31,13 @@ class Modal extends Component {
     }
 
     componentWillReceiveProps() {
-        const { showModal, optionsWithId } = this.props;
-        console.log(optionsWithId)
+        const { showModal } = this.props;
         // reset input and options if modal is shown
         showModal && this.reset();
     }
 
     reset() {
+        console.log('called')
         this.setState(() => ({ 
             filterVal: '', 
             filteredOptions: null,
@@ -108,6 +108,8 @@ class Modal extends Component {
         } = this.state;
         const optionsToRender = filtering ? filteredOptions : optionsWithId;
 
+        console.log(optionsToRender)
+
         return(
             <div 
                 className='modal-container'
@@ -140,7 +142,7 @@ class Modal extends Component {
                                 key={i} 
                                 value={option.val}
                                 uid={option.id}
-                                selected={option.selected}
+                                highlight={option.selected ? 'true' : 'false'}
                             >
                                 {option.val}
                             </li>
@@ -159,7 +161,8 @@ Modal.propTypes = {
     options: PropTypes.array.isRequired,
     hasInput: PropTypes.bool.isRequired,
     handleSelectTitle: PropTypes.func.isRequired,
-    handleOptionHighlighting: PropTypes.func.isRequired
+    handleOptionHighlighting: PropTypes.func.isRequired,
+    showModal: PropTypes.bool.isRequired
 }
 
 
