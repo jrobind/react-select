@@ -14,9 +14,19 @@ module.exports = {
     },
     module: {
         rules: [
-            {test: /\.(js|jsx)$/, use: 'babel-loader', exclude: /node_modules/},
-            {test: /\.scss$/, use: [{loader: 'style-loader'}, {loader: 'css-loader'}, {loader: 'sass-loader'}]}
-        
+            {
+                test: /\.(js|jsx)$/, 
+                loader: 'babel-loader', 
+                exclude: /node_modules/,
+                options: {
+                    presets: [
+                        '@babel/preset-env',
+                        '@babel/react',
+                        {'plugins': ['@babel/plugin-proposal-class-properties']}
+                    ]
+                }
+            },
+            {test: /\.scss$/, use: [{loader: 'style-loader'}, {loader: 'css-loader'}, {loader: 'sass-loader'}]},
         ]
     },
     devServer: {

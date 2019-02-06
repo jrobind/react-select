@@ -11,24 +11,17 @@ class Select extends Component {
             showModal: false,
             optionsHighlighted: []
         }
-
-        this.handleModalDisplay = this.handleModalDisplay.bind(this);
-        this.handleSelectTitle = this.handleSelectTitle.bind(this);
-        this.handleOptionHighlighting = this.handleOptionHighlighting.bind(this);
-        this.createId = this.createId.bind(this);
     }
 
-    handleModalDisplay() {
-        this.setState((prevState) => ({showModal: !prevState.showModal}));
-    }
+    handleModalDisplay = () => this.setState((prevState) => ({showModal: !prevState.showModal}));
 
-    handleSelectTitle({ val }) {
+    handleSelectTitle = ({ val }) => {
         this.setState(() => ({optionVal: val}));
         // if a selection is made then we need to remove modal
         this.handleModalDisplay();
     }
 
-    createId(options) {
+    createId = (options) => {
         // create objects from option strings
         return options.map(option => {
             let uid = '';
@@ -39,7 +32,7 @@ class Select extends Component {
         });
     }
 
-    handleOptionHighlighting({filterVal, optionsWithId}) {
+    handleOptionHighlighting = ({filterVal, optionsWithId}) => {
         // reset options that may have already been highlighted
         optionsWithId = optionsWithId.map(option => {
             if (option.selected) { option.selected = false; }
