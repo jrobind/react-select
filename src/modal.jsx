@@ -66,14 +66,9 @@ class Modal extends Component {
             onClick,
             optionsWithId
         } = this.props;
-        const { filterVal } = this.state;
-        const val = e ? e.target.innerText : submissionVal;
+        const val = e.target.innerText;
 
-        handleOptionHighlighting({
-            eventType: e.type,
-            filterVal,
-            optionsWithId
-        });
+        handleOptionHighlighting({filterVal: val, optionsWithId});
         onClick(val);
         // the method expects an object
         handleSelectTitle({val});  
@@ -86,11 +81,7 @@ class Modal extends Component {
         // only allow submission via enter key if one option value is filtered
         if (filteredOptions && filteredOptions.length === 1) {
             this.setState(() => ({alertMessage: false}));
-            handleOptionHighlighting({
-                eventType: e.type,
-                filterVal,
-                optionsWithId
-            });
+            handleOptionHighlighting({filterVal, optionsWithId});
             handleSelectTitle(filteredOptions[0]);  
         } else {
             // inform user if not
