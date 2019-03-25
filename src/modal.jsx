@@ -22,12 +22,6 @@ class Modal extends Component {
             alertMessage: false,
             selectedUid: null
         }
-
-        this.handleSelectClick = this.handleSelectClick.bind(this);
-        this.handleOptionSearch = this.handleOptionSearch.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this); 
-        this.handleExit = this.handleExit.bind(this);
-        this.reset = this.reset.bind(this);
     }
 
     componentWillReceiveProps() {
@@ -36,7 +30,7 @@ class Modal extends Component {
         showModal && this.reset();
     }
 
-    reset() {
+    reset = () => {
         console.log('called')
         this.setState(() => ({ 
             filterVal: '', 
@@ -46,11 +40,9 @@ class Modal extends Component {
          }));
     }
 
-    handleExit() {
-        this.setState(() => ({alertMessage: false}));
-    }
+    handleExit = () => this.setState(() => ({alertMessage: false}));
 
-    handleOptionSearch(e) {
+    handleOptionSearch = (e) => {
         const { optionsWithId } = this.props;
         const val = e.target.value.toLowerCase();
         const filteredOptions = optionsWithId.filter(option => option.val.toLowerCase().includes(val));
@@ -59,7 +51,7 @@ class Modal extends Component {
         this.setState(() =>({filtering: true, filterVal: val, filteredOptions}));
     }
 
-    handleSelectClick(e) {
+    handleSelectClick = (e) => {
         const { 
             handleOptionHighlighting, 
             handleSelectTitle, 
@@ -74,7 +66,7 @@ class Modal extends Component {
         handleSelectTitle({val});  
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         const { filteredOptions, filterVal } = this.state;
         const { handleOptionHighlighting, handleSelectTitle, optionsWithId} = this.props;
         e.preventDefault();
