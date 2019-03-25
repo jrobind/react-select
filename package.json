@@ -17,10 +17,12 @@
   },
   "devDependencies": {
     "@babel/core": "7.2.2",
+    "@babel/plugin-proposal-class-properties": "7.3.4",
     "@babel/preset-env": "7.3.1",
     "@babel/preset-react": "7.0.0",
     "babel-cli": "6.26.0",
-    "babel-jest": "23.6.0",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "24.5.0",
     "babel-loader": "7.1.5",
     "babel-plugin-transform-class-properties": "6.24.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
@@ -39,6 +41,12 @@
   },
   "jest": {
     "collectCoverage": true,
-    "setupTestFrameworkScriptFile": "<rootDir>/test-setup.js"
+    "setupTestFrameworkScriptFile": "<rootDir>/test-setup.js",
+    "transformIgnorePatterns": [
+      "/node_modules/(?!@babel).+\\.js$"
+    ],
+    "transform": {
+      "^.+\\.js?$": "babel-jest"
+    }
   }
 }
