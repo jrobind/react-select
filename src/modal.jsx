@@ -9,7 +9,7 @@ const ErrorMessage = ({ handleExit }) => (
         >x</div>
         <p>Please select <strong>one</strong> option.</p>
     </div>
-)
+);
 
 class Modal extends Component {
     constructor(props) {
@@ -31,7 +31,6 @@ class Modal extends Component {
     }
 
     reset = () => {
-        console.log('called')
         this.setState(() => ({ 
             filterVal: '', 
             filteredOptions: null,
@@ -69,6 +68,7 @@ class Modal extends Component {
     handleSubmit = (e) => {
         const { filteredOptions, filterVal } = this.state;
         const { handleOptionHighlighting, handleSelectTitle, optionsWithId} = this.props;
+
         e.preventDefault();
         // only allow submission via enter key if one option value is filtered
         if (filteredOptions && filteredOptions.length === 1) {
@@ -86,12 +86,9 @@ class Modal extends Component {
         const { 
             filtering, 
             filteredOptions, 
-            alertMessage, 
-            selectedUid
+            alertMessage,
         } = this.state;
         const optionsToRender = filtering ? filteredOptions : optionsWithId;
-
-        console.log(optionsToRender)
 
         return(
             <div 
@@ -118,7 +115,10 @@ class Modal extends Component {
                             type='text'></input>
                     </form> : null}
     
-                <ul className="modal-options">
+                <ul 
+                    className="modal-options"
+                    data-testid='modalOptions'    
+                >
                     <div onClick={this.handleSelectClick}>
                         {optionsToRender.map((option, i) => (
                             <li
