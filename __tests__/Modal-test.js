@@ -59,4 +59,19 @@ describe('<Modal/>', () => {
         expect(wrapper.state('filteredOptions')[0]).toEqual(optionObj);
     });
 
+    it('should render no options highlighted by default', () => {
+        const wrapper = shallow(<Modal {...props} />);
+        
+        expect(wrapper.find(".modal-options [highlight='true']").length).toEqual(0);
+    });
+
+    it('should render options with previously submitted option highlighted', () => {
+        const wrapper = mount(<Modal {...props} />);
+        const option1 = wrapper.find('.modal-options li').at(0);
+
+        option1.simulate('click');
+        
+        expect(wrapper.find(".modal-options [highlight='true']").length).toEqual(0);
+    });
+
 });

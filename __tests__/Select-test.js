@@ -2,6 +2,7 @@ import React from 'react';
 import Select from '../src/Select';
 import Modal from '../src/Modal';
 import { shallow, mount } from 'enzyme';
+import { wrap } from 'module';
 
 const props = {
     onClick: function() {},
