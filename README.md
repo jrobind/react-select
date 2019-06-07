@@ -1,3 +1,3 @@
 * Add tests (more intelligent tests for Select component)
-* Fix broken tests for Modal.
+* Update styles across app.
 * Implement React Hooks

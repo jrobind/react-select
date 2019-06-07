@@ -70,10 +70,14 @@
             outline: none;
             border: 2px solid red;
         }
-    }
 
-    .modal-options:hover {
-        cursor: pointer;
+        .modal-options {
+            padding: 0;
+        }
+    
+        .modal-options:hover {
+            cursor: pointer;
+        }
     }
 
     .modal-error-message {
